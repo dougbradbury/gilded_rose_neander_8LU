@@ -15,22 +15,28 @@ describe "#update_quality" do
       it { item.sell_in.should == initial_sell_in-1 }
 
       context "before sell date" do
-        xit { item.quality.should == initial_quality-1 }
+        it { item.quality.should == initial_quality-1 }
       end
+      
+      it "does two updates" do
+        update_quality([item])
+        item.sell_in.should == initial_sell_in - 2
+      end
+
 
       context "on sell date" do
         let(:initial_sell_in) { 0 }
-        xit { item.quality.should == initial_quality-2 }
+        it { item.quality.should == initial_quality-2 }
       end
 
       context "after sell date" do
         let(:initial_sell_in) { -10 }
-        xit { item.quality.should == initial_quality-2 }
+        it { item.quality.should == initial_quality-2 }
       end
 
       context "of zero quality" do
         let(:initial_quality) { 0 }
-        xit { item.quality.should == 0 }
+        it { item.quality.should == 0 }
       end
     end
 
